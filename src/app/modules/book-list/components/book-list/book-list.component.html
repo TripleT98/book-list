@@ -1,0 +1,23 @@
+<div class="book-list">
+  <ng-container [ngTemplateOutlet]="header"></ng-container>
+  <ng-container [ngTemplateOutlet]="main"></ng-container>
+  <ng-container [ngTemplateOutlet]="footer"></ng-container>
+</div>
+
+<ng-template #header>
+  <header class="header">
+    Список книг
+  </header>
+</ng-template>
+
+<ng-template #main>
+  <main class="main">
+    <app-book *ngFor="let book of (bookList$ | async)" [book]="book"></app-book>
+  </main>
+</ng-template>
+
+<ng-template #footer>
+  <footer class="footer">
+    <button mat-button (click)="createBook()">Добавить книгу</button>
+  </footer>
+</ng-template>
