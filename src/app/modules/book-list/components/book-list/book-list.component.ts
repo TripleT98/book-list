@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { BookListService } from '@bookList/services/book-list.service';
+import { Book, BookInfo } from '@shared/types/book.type';
 import { ModalService, MatDialogName } from '@shared/services/modal/modal.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { ModalService, MatDialogName } from '@shared/services/modal/modal.servic
 })
 export class BookListComponent {
 
-  protected bookList$ = this.bookListS.bookList$;
+  protected bookList$ = this.bookListS.get$();
 
   constructor(
     private bookListS: BookListService,
@@ -19,8 +20,8 @@ export class BookListComponent {
   }
 
   protected createBook(){
-    this.modalS.open(MatDialogName['createBook'])?.afterClosed().subscribe(data => {
-      
+    this.modalS.open(MatDialogName['createBook'])?.afterClosed().subscribe((data: Omit<Book, 'id'>) => {
+      this.bookListS.add(data)
     })
   }
 

@@ -1,11 +1,23 @@
 <div class="book">
-  <div class="name">
-    {{book.name}}
-  </div>
-  <div class="name">
-    {{book.author}}
-  </div>
-  <div class="name">
-    {{book.style}}
-  </div>
+  <ng-container [ngTemplateOutlet]="bookView"></ng-container>
 </div>
+
+<ng-template #bookView>
+  <div class="container">
+  		<div class="book">
+  			<div class="front">
+  				<div class="cover">
+  					<p class="num-up">84</p>
+              <p class="num-down">1</p>
+              <p class=author>George Orwell</p>
+  				</div>
+  			</div>
+  			<div class="left-side">
+  				<h2>
+  					<span>George Orwell</span>
+  					<span>1984</span>
+  				</h2>
+  			</div>
+  		</div>
+  	</div>
+</ng-template>

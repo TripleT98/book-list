@@ -23,10 +23,8 @@ export class ModalService {
 		let component = null;
     switch (modalName) {
 			case MatDialogName['createBook']:
-				configDialog.maxWidth = '85vw';
-				configDialog.minWidth = 550;
-				configDialog.disableClose = true;
 				component = ModalCreateBookComponent;
+        configDialog.disableClose = true;
 				break;
       }
     if (component) {

@@ -12,12 +12,12 @@
 
 <ng-template #main>
   <main class="main">
-    <app-book *ngFor="let book of (bookList$ | async)" [book]="book"></app-book>
+    <app-book *ngFor="let book of (bookList$ | async)" [book]="book.id | getBookInfo | async"></app-book>
   </main>
 </ng-template>
 
 <ng-template #footer>
   <footer class="footer">
-    <button mat-button (click)="createBook()">Добавить книгу</button>
+    <button mat-raised-button (click)="createBook()">Добавить книгу</button>
   </footer>
 </ng-template>
