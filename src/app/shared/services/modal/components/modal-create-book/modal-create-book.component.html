@@ -6,7 +6,7 @@
 
 <ng-template #haeder>
   <div class="header">
-    Заголовок
+    Создать книгу
   </div>
 </ng-template>
 
@@ -16,9 +16,9 @@
       <mat-form-field>
         <mat-label>{{formField.label}}</mat-label>
         <ng-container [ngSwitch]="formField.input.type">
-          <input matInput *ngSwitchCase="inputTypes['string']" [formControlName]="formField.prop" type="text">
-          <input matInput *ngSwitchCase="inputTypes['number']" [formControlName]="formField.prop" type="number">
-          <textarea matInput *ngSwitchCase="inputTypes['text']" [formControlName]="formField.prop"></textarea>
+          <input autocomplete="off" matInput *ngSwitchCase="inputTypes['string']" [formControlName]="formField.prop" type="text">
+          <input autocomplete="off" matInput *ngSwitchCase="inputTypes['number']" [formControlName]="formField.prop" type="number">
+          <textarea autocomplete="off" matInput *ngSwitchCase="inputTypes['text']" [formControlName]="formField.prop"></textarea>
           <mat-select *ngSwitchCase="inputTypes['select']" [formControlName]="formField.prop">
             <mat-option *ngFor="let data of ((formField.input.data$ | async) || [])" [value]="data">
               {{data['name']}}

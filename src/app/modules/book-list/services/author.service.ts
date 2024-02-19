@@ -4,7 +4,7 @@ import { Author } from '@shared/types/author.type';
 
 const authors: Author[] = [
   {id: 1, name: 'S. Freud'},
-  {id: 2, name: 'F. Kafks'},
+  {id: 2, name: 'F. Kafka'},
   {id: 3, name: 'A. Pushkin'},
 ]
 

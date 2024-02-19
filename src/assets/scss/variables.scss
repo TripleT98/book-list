@@ -1,2 +1,16 @@
-$main-color: rgb(33, 6, 143);
-$main-color-hover: rgb(17, 2, 77);
+$main-color: #E0EAFC;
+$main-color-2: #CFDEF3;
+$side-color: #BE93C5;
+$side-color-2: #7BC6CC;
+
+@mixin mainGradient{
+  background: $main-color;
+  background: -webkit-linear-gradient(to left, $main-color , $main-color-2);
+  background: linear-gradient(to left, $main-color , $main-color-2);
+}
+
+@mixin sideGradient{
+  background: $side-color;
+  background: -webkit-linear-gradient(to left, $side-color , $side-color-2);
+  background: linear-gradient(to left, $side-color , $side-color-2);
+}

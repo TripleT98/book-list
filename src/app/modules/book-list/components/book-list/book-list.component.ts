@@ -21,6 +21,9 @@ export class BookListComponent {
 
   protected createBook(){
     this.modalS.open(MatDialogName['createBook'])?.afterClosed().subscribe((data: Omit<Book, 'id'>) => {
+      if (!data) {
+        return;
+      }
       this.bookListS.add(data)
     })
   }

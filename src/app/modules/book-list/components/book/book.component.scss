@@ -1,10 +1,17 @@
 :host{
-  width: 300px;
+  width: 200px;
+}
+
+@mixin posAbs($top, $left){
+  position: absolute;
+  top: $top;
+  left: $left;
 }
 
 .container{
   z-index: 1;
   perspective:3000px;
+  cursor: pointer;
 }
 
 .container .book{
@@ -29,10 +36,15 @@
   transition: transform .5s;
 }
 
-.container .book:hover{
-  -webkit-transform: rotate3d(0,1,0,35deg);
-  -moz-transform: rotate3d(0,1,0,35deg);
-  transform: rotate3d(0,1,0,35deg);
+.container .book{
+  -webkit-transform: rotate3d(0,1,0,14deg);
+  -moz-transform: rotate3d(0,1,0,14deg);
+  transform: rotate3d(0,1,0,14deg);
+  &:hover{
+    -webkit-transform: rotate3d(0,1,0,35deg) translateX(-100px);
+    -moz-transform: rotate3d(0,1,0,35deg) translateX(-100px);
+    transform: rotate3d(0,1,0,35deg) translateX(-100px);
+  }
 }
 
 .container .book,
@@ -92,14 +104,27 @@
   transform: rotate(-90deg);
 }
 
-.author{
+.info{
   font-family: acumin-pro, sans-serif;
   font-weight: 400;
-  position: absolute;
-  top: 475px;
-  left: 50px;
   opacity: .8;
-  }
+}
+
+.author{
+  @include posAbs(475px, 50px);
+}
+
+.name{
+  width: 100%;
+  padding: 0 40px;
+  font-size: 30px;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  @include posAbs(50px, 0px);
+  word-break: break-all;
+  text-align: center;
+}
 
 .container .front{
   div{

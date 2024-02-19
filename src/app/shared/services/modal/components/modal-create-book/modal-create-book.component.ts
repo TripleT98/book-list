@@ -46,7 +46,7 @@ export class ModalCreateBookComponent implements OnInit {
       prop: 'pageCount',
       label: 'Число страниц',
       input: {
-        type: InputType['string'],
+        type: InputType['number'],
         validators: [ Validators.required, Validators.min(1) ]
       }
     },

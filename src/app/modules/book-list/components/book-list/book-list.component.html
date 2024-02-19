@@ -6,7 +6,6 @@
 
 <ng-template #header>
   <header class="header">
-    Список книг
   </header>
 </ng-template>
 
@@ -18,6 +17,8 @@
 
 <ng-template #footer>
   <footer class="footer">
-    <button mat-raised-button (click)="createBook()">Добавить книгу</button>
+    <button mat-icon-button (click)="createBook()" matTooltip="Добавить книгу">
+      <mat-icon>add</mat-icon>
+    </button>
   </footer>
 </ng-template>

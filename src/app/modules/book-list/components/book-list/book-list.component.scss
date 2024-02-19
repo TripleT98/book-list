@@ -1,9 +1,12 @@
+@import "assets/scss/variables.scss";
+
 $header-height: 10%;
 $footer-height: 10%;
 $main-height: calc(100% - ($header-height + $footer-height));
 
 .book-list{
   height: 100%;
+  @include mainGradient;
 }
 
 .header{
@@ -12,9 +15,15 @@ $main-height: calc(100% - ($header-height + $footer-height));
 
 .main{
   height: $main-height;
+  padding-left: 100px;
   display: flex;
+  overflow: auto;
+
 }
 
 .footer{
   height: $footer-height;
+  display: flex;
+  justify-content: center;
+  padding-top: 14px;
 }

@@ -3,9 +3,9 @@ import { GeneralService } from "./general.service";
 import { Lang } from '@shared/types/lang.type';
 
 const langs: Lang[] = [
-  {id: 1, name: 'ru'},
-  {id: 2, name: 'en'},
-  {id: 3, name: 'ch'},
+  {id: 1, name: 'Русский'},
+  {id: 2, name: 'Английский'},
+  {id: 3, name: 'Французский'},
 ]
 
 @Injectable({providedIn: 'root'})
