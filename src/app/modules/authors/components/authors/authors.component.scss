@@ -1,0 +1,49 @@
+@import "assets/scss/variables.scss";
+
+$header-height: 10%;
+$footer-height: 10%;
+$main-height: calc(100% - ($header-height + $footer-height));
+
+.authors-list{
+  height: 100%;
+}
+
+.header{
+  height: $header-height;
+}
+
+.main{
+  height: $main-height;
+  display: flex;
+  overflow: hidden;
+  justify-content: center;
+}
+
+.list{
+  width: 20%;
+  min-width: 250px;
+  height: 100%;
+  overflow: auto;
+  box-shadow: 0 0 8px rgb(0,0,0,0.2);
+  color: $text-color !important;
+  .mat-mdc-list-item{
+    cursor: pointer;
+    transition-duration: .3s;
+    &:hover{
+      background: rgba(255,255,255, 0.15);
+    }
+  }
+}
+
+.footer{
+  height: $footer-height;
+  display: flex;
+  justify-content: center;
+  column-gap: 24px;
+  padding-top: 14px;
+}
+
+.mat-divider{
+  width: 90%;
+  transform: translateX(5%);
+}

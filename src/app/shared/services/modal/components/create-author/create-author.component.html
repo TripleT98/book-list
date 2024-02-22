@@ -1,0 +1,28 @@
+<div class="modal-create-book">
+  <ng-container [ngTemplateOutlet]="haeder"></ng-container>
+  <ng-container [ngTemplateOutlet]="creationForm"></ng-container>
+  <ng-container [ngTemplateOutlet]="buttonBar"></ng-container>
+</div>
+
+<ng-template #haeder>
+  <div class="header">
+    Создать Автора
+  </div>
+</ng-template>
+
+<ng-template #creationForm>
+  <form class="creation-form">
+    <mat-form-field appearance="outline">
+      <mat-label>Имя автора</mat-label>
+      <input autocomplete="off" matInput [formControl]="form" type="text">
+      <mat-error *ngIf="form?.invalid">{{form | getErrMess | async}}</mat-error>
+    </mat-form-field>
+  </form>
+</ng-template>
+
+<ng-template #buttonBar>
+  <div class="button-bar">
+    <button mat-raised-button [mat-dialog-close]="{name: form.value}" [disabled]="form.invalid">Сохранить</button>
+    <button mat-raised-button [mat-dialog-close]="false">Отменить</button>
+  </div>
+</ng-template>

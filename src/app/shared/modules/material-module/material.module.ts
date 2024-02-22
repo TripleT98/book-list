@@ -13,6 +13,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatListModule } from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatTabsModule } from '@angular/material/tabs';
 
 const mat_module = [
 	MatButtonModule,
@@ -28,6 +29,7 @@ const mat_module = [
 	MatSnackBarModule,
 	MatTooltipModule,
 	MatDividerModule,
+	MatTabsModule,
 
 	ReactiveFormsModule,
 	FormsModule,

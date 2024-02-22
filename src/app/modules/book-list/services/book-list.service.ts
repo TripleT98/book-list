@@ -9,7 +9,7 @@ const bookList: BookList = [{
   authorId: 1,
   pageCount: 100,
   langId: 1,
-  style: 'adventure',
+  style: 'Приключение',
   description: 'Описание 1'
 },{
   id: 2,
@@ -17,7 +17,7 @@ const bookList: BookList = [{
   authorId: 2,
   pageCount: 120,
   langId: 2,
-  style: 'adventure',
+  style: 'Антиутопия',
   description: 'Описание 2'
 },{
   id: 3,
@@ -25,7 +25,7 @@ const bookList: BookList = [{
   authorId: 3,
   pageCount: 230,
   langId: 3,
-  style: 'adventure',
+  style: 'Роман',
   description: 'Описание 3'
 },
 {

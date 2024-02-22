@@ -3,7 +3,7 @@ import { GeneralService } from "./general.service";
 import { Author } from '@shared/types/author.type';
 
 const authors: Author[] = [
-  {id: 1, name: 'S. Freud'},
+  {id: 1, name: 'J. R. R. Tolkien'},
   {id: 2, name: 'F. Kafka'},
   {id: 3, name: 'A. Pushkin'},
 ]

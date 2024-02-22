@@ -4,7 +4,6 @@ import { Book } from '@shared/types/book.type';
 import { CreationFormType, InputType } from '@shared/types/creation-form.type';
 import { LangService } from '@bookList/services/lang.service';
 import { AuthorService } from '@bookList/services/author.service';
-import { BehaviorSubject } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
 @Component({
@@ -16,7 +15,7 @@ export class ModalCreateBookComponent implements OnInit {
 
   protected readonly inputTypes = InputType;
   protected form = new FormGroup({});
-  protected readonly bookCreationForm: CreationFormType<Book> = [
+  protected readonly bookCreationForm: CreationFormType<Book>[] = [
     {
       prop: 'name',
       label: 'Название',
@@ -30,7 +29,7 @@ export class ModalCreateBookComponent implements OnInit {
       label: 'Автор',
       input: {
         type: InputType['select'],
-        validators: [ Validators.required ],
+        validators: [ Validators.required, Validators.maxLength(18) ],
         data$: this.authorS.get$()
       }
     },
@@ -89,14 +88,6 @@ export class ModalCreateBookComponent implements OnInit {
       const formControl = new FormControl(null, fModel.input.validators || []);
       this.form.setControl(fModel.prop, formControl);
     })
-  }
-
-  protected save(){
-    console.log('save');
-  }
-
-  protected cancel(){
-    console.log('cancel');
   }
 
 }

@@ -1,0 +1,54 @@
+<div class="book-filter">
+  <ng-container [ngTemplateOutlet]="filterForm"></ng-container>
+</div>
+
+<ng-template #filterForm>
+  <form class="creation-form" [formGroup]="form">
+    <div class="form" *ngFor="let formField of bookfilterForm">
+      <ng-container [ngSwitch]="formField.input.type" *ngIf="form.get(formField.prop) as control">
+        <ng-container *ngSwitchCase="inputTypes['string']" [ngTemplateOutlet]="stringInput" [ngTemplateOutletContext]="{formField, control}"></ng-container>
+        <ng-container *ngSwitchCase="inputTypes['select']" [ngTemplateOutlet]="selectInput" [ngTemplateOutletContext]="{formField, control}"></ng-container>
+        <ng-container *ngSwitchCase="inputTypes['multiselect']" [ngTemplateOutlet]="multiselectInput" [ngTemplateOutletContext]="{formField, control}"></ng-container>
+        <ng-container *ngSwitchCase="inputTypes['range']" [ngTemplateOutlet]="rangeInput" [ngTemplateOutletContext]="{formField, control}"></ng-container>
+      </ng-container>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #stringInput let-formField="formField" let-control="control">
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>{{formField.label}}</mat-label>
+    <input autocomplete="off" matInput [formControl]="control" type="text">
+  </mat-form-field>
+</ng-template>
+
+<ng-template #selectInput let-formField="formField" let-control="control">
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>{{formField.label}}</mat-label>
+    <mat-select [formControl]="control">
+      <mat-option *ngFor="let data of ((formField.input.data$ | async) || [])" [value]="data.id">
+        {{data['name']}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</ng-template>
+
+<ng-template #multiselectInput let-formField="formField" let-control="control">
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>{{formField.label}}</mat-label>
+    <mat-select multiple [formControl]="control">
+      <mat-option *ngFor="let data of ((formField.input.data$ | async) || [])" [value]="data.id">
+        {{data['name']}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</ng-template>
+
+<ng-template #rangeInput let-formField="formField" let-control="control">
+  <div class="range-field">
+    <mat-form-field appearance="outline" class="range-control" *ngFor="let orderF of form.get(formField.prop).controls;let i = index" class="form-field">
+      <mat-label>{{formField.input.order[i].label}}</mat-label>
+      <input autocomplete="off" matInput [formControl]="orderF" type="number">
+    </mat-form-field>
+  </div>
+</ng-template>

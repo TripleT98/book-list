@@ -11,9 +11,12 @@
 
 .mat-mdc-icon-button{
   color: white !important;
-  background: rgba(0,0,0, .1) !important;
+  background: rgba(0,0,0, .15) !important;
   .mat-icon{
     position: relative;
     top: -1px;
+  }
+  &:disabled{
+    background-color: rgba(0,0,0, .05) !important;
   }
 }

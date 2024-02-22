@@ -1,24 +1,48 @@
 @import "assets/scss/variables.scss";
 
 $header-height: 10%;
+$header-height-filter-opened: 20%;
 $footer-height: 10%;
 $main-height: calc(100% - ($header-height + $footer-height));
+$main-height-filter-opened: calc(100% - ($header-height-filter-opened + $footer-height));
+$drop-anim-time: .6s;
 
 .book-list{
   height: 100%;
-  @include mainGradient;
 }
 
 .header{
   height: $header-height;
+  position: relative;
+  transition-duration: $drop-anim-time;
+  &.filter-opened{
+    height: $header-height-filter-opened;
+    transition-duration: $drop-anim-time;
+  }
+  .filter-icon{
+    position: absolute;
+    top: 14px;
+    right: 24px;
+    color: $side-color;
+    transition-duration: .3s;
+    z-index: 20;
+    cursor: pointer;
+    &:hover{
+      color: $side-color-2;
+    }
+  }
 }
 
 .main{
   height: $main-height;
-  padding-left: 100px;
+  padding: 0 260px 0 60px;
   display: flex;
   overflow: auto;
-
+  transition-duration: $drop-anim-time;
+  &.filter-opened{
+    height: $main-height-filter-opened;
+    transition-duration: $drop-anim-time;
+  }
 }
 
 .footer{
@@ -26,4 +50,19 @@ $main-height: calc(100% - ($header-height + $footer-height));
   display: flex;
   justify-content: center;
   padding-top: 14px;
+}
+
+.filter{
+  animation: drop $drop-anim-time ease-out forwards;
+}
+
+@keyframes drop {
+  0%{
+    top: -300%;
+    opacity: 0;
+  }
+  100%{
+    top: 0%;
+    opacity: 1;
+  }
 }

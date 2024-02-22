@@ -5,12 +5,20 @@
 </div>
 
 <ng-template #header>
-  <header class="header">
+  <header class="header" [ngClass]="{'filter-opened': filterStatus}">
+    <mat-icon
+      class="filter-icon"
+      (click)="switchFilter()"
+      [matTooltip]="!filterStatus ? 'Фильтр' : 'Закрыть фильтр'"
+    >
+      {{!filterStatus ? 'filter_alt' : 'close'}}
+    </mat-icon>
+    <app-filter [form]="filterForm" class="filter" *ngIf="filterStatus"></app-filter>
   </header>
 </ng-template>
 
 <ng-template #main>
-  <main class="main">
+  <main class="main" [ngClass]="{'filter-opened': filterStatus}">
     <app-book *ngFor="let book of (bookList$ | async)" [book]="book.id | getBookInfo | async"></app-book>
   </main>
 </ng-template>

@@ -13,14 +13,14 @@
 <ng-template #creationForm>
   <form class="creation-form" [formGroup]="form">
     <div class="form" *ngFor="let formField of bookCreationForm">
-      <mat-form-field>
+      <mat-form-field appearance="outline">
         <mat-label>{{formField.label}}</mat-label>
         <ng-container [ngSwitch]="formField.input.type">
           <input autocomplete="off" matInput *ngSwitchCase="inputTypes['string']" [formControlName]="formField.prop" type="text">
           <input autocomplete="off" matInput *ngSwitchCase="inputTypes['number']" [formControlName]="formField.prop" type="number">
           <textarea autocomplete="off" matInput *ngSwitchCase="inputTypes['text']" [formControlName]="formField.prop"></textarea>
           <mat-select *ngSwitchCase="inputTypes['select']" [formControlName]="formField.prop">
-            <mat-option *ngFor="let data of ((formField.input.data$ | async) || [])" [value]="data">
+            <mat-option *ngFor="let data of ((formField.input.data$ | async) || [])" [value]="data.id">
               {{data['name']}}
             </mat-option>
           </mat-select>
@@ -34,7 +34,7 @@
 
 <ng-template #buttonBar>
   <div class="button-bar">
-    <button mat-raised-button (click)="save()" [mat-dialog-close]="form.value">Сохранить</button>
-    <button mat-raised-button (click)="cancel()" [mat-dialog-close]="false">Отменить</button>
+    <button mat-raised-button [mat-dialog-close]="form.value" [disabled]="form.invalid">Сохранить</button>
+    <button mat-raised-button [mat-dialog-close]="false">Отменить</button>
   </div>
 </ng-template>

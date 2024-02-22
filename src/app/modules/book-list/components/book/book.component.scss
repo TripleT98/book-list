@@ -1,6 +1,13 @@
+@import 'assets/scss/variables.scss';
+
 :host{
   width: 200px;
+  .picked-book{
+    animation: pickABook 1s ease-out forwards;
+  }
 }
+
+
 
 @mixin posAbs($top, $left){
   position: absolute;
@@ -44,6 +51,28 @@
     -webkit-transform: rotate3d(0,1,0,35deg) translateX(-100px);
     -moz-transform: rotate3d(0,1,0,35deg) translateX(-100px);
     transform: rotate3d(0,1,0,35deg) translateX(-100px);
+  }
+}
+
+.picked-book{
+  animation: pickABook 1s ease-out forwards;
+}
+
+@keyframes pickABook {
+  0%{
+    -webkit-transform: rotate3d(0,1,0,14deg);
+    -moz-transform: rotate3d(0,1,0,14deg);
+    transform: rotate3d(0,1,0,14deg);
+  }
+  50%{
+    -webkit-transform: rotate3d(0,1,0,35deg) translateX(-200px);
+    -moz-transform: rotate3d(0,1,0,35deg) translateX(-200px);
+    transform: rotate3d(0,1,0,35deg) translateX(-200px);
+  }
+  100%{
+    -webkit-transform: rotate3d(0,1,0,35deg) translateX(-300px) translateZ(360px) rotateY(-30deg);
+    -moz-transform: rotate3d(0,1,0,35deg) translateX(-300px) translateZ(360px) rotateY(-30deg);
+    transform: rotate3d(0,1,0,35deg) translateX(-300px) translateZ(360px) rotateY(-30deg);
   }
 }
 
@@ -158,7 +187,7 @@
 .container h2 {
   width: 500px;
   height: 40px;
-  color: #2b2b2b;
+  color: $text-color;
   font-size: 15px;
   line-height: 40px;
   padding-right: 10px;

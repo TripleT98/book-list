@@ -1,4 +1,10 @@
+@import "assets/scss/variables";
+
 app-root{
   display: block;
   height: 100%;
+}
+
+.tabs{
+  position: absolute;
 }

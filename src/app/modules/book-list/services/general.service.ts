@@ -42,13 +42,36 @@ export class GeneralService<T extends { id: number }> {
     return this.collection$;
   }
 
-  public add(book: Omit<T, 'id'>){
-    const newId = this.getNewId();
-    this.setCollection([...this.collection, {...book, id: newId} as T]);
+  public get(){
+    return [...this.collection];
   }
 
-  public remove(bookId: number): boolean{
-    const newcollection = this.collection.filter(book => book.id === bookId);
+  public add(data: Omit<T, 'id'>){
+    const newId = this.getNewId();
+    this.setCollection([...this.collection, {...data, id: newId} as T]);
+  }
+
+  public set(data: Omit<T, 'id'>[]){
+    const newCollection: T[] = data.map((d, i) => {
+      return {...d, id: i + 1}
+    }) as T[];
+    this.setCollection([...newCollection]);
+  }
+
+  public change(data: Partial<T>){
+    const newCollection = this.collection.reduce<T[]>((acc,item) => {
+      let newItem = {...item};
+      if (item.id === data.id) {
+        newItem = {...newItem, ...data};
+      };
+      acc.push(newItem)
+      return acc;
+    }, []);
+    this.setCollection(newCollection);
+  }
+
+  public remove(dataId: number): boolean{
+    const newcollection = this.collection.filter(data => data.id === dataId);
     if (newcollection.length === this.collection.length) {
       return false;
     }

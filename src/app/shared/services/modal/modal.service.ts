@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { ModalCreateBookComponent } from './components/modal-create-book/modal-create-book.component';
+import { ModalCreateAuthorComponent } from './components/create-author/create-author.component';
 
 @Injectable(
   { providedIn: 'root' }
@@ -26,10 +27,14 @@ export class ModalService {
 				component = ModalCreateBookComponent;
         configDialog.disableClose = true;
 				break;
-      }
+      case MatDialogName['createAuthor']:
+  			component = ModalCreateAuthorComponent;
+        configDialog.disableClose = true;
+  			break;
+    }
     if (component) {
   		configDialog.id = String(modalName);
-  		this.currentModal = this.matDialog.open(component, configDialog);
+  		this.currentModal = this.matDialog.open(component as any, configDialog);
   		return this.currentModal;
   	}
   }
@@ -47,5 +52,6 @@ export class ModalService {
 }
 
 export enum MatDialogName {
-  'createBook'
+  'createBook',
+  'createAuthor'
 }

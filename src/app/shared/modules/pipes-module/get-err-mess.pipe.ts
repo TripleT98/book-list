@@ -36,7 +36,6 @@ export class GetErrorMessagePipe implements PipeTransform {
         return '';
       }
       const [errorName, errorData] =  errors[0];
-      console.log((this.errors as any)[errorName])
       const errorText = (this.errors as any)[errorName]?.(errorData);
       return errorText || '';
     })) : of('');
