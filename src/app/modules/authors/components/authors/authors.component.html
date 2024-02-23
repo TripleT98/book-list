@@ -12,9 +12,23 @@
 <ng-template #main>
   <main class="main">
     <mat-list class="list">
-      <ng-container *ngFor="let author of authors">
-        <mat-list-item contenteditable="true" (input)="authorEdit($event, author)" [matTooltip]="author.name">
-          {{author.name}}
+      <ng-container *ngFor="let author of (authors$ | async)">
+        <mat-list-item
+          #inputListItem
+          class="input-item with-icon"
+        >
+          <input
+            type="text"
+            [maxLength]="18"
+            [formControl]="namesForm.get(author.id + '')"
+            [matTooltip]="author.name"
+          >
+          <mat-error class="error" *ngIf="namesForm.get(author.id + '')?.invalid">{{namesForm.get(author.id + '') | getErrMess | async}}</mat-error>
+          <mat-icon
+            class="delete-icon clickable"
+            (click)="deleteAuthor(author.id)"
+            matTooltip="Удалить"
+          >delete</mat-icon>
         </mat-list-item>
         <mat-divider></mat-divider>
       </ng-container>
@@ -27,7 +41,7 @@
     <button mat-icon-button matTooltip="Добавить автора" (click)="createAuthor()">
       <mat-icon>add</mat-icon>
     </button>
-    <button mat-icon-button matTooltip="Сохранить изменения" (click)="save()" [disabled]="!authorsNames.size">
+    <button mat-icon-button matTooltip="Сохранить изменения" (click)="save()" [disabled]="namesForm.invalid || !authorsNames.size">
       <mat-icon>done</mat-icon>
     </button>
     <button mat-icon-button matTooltip="Отменить изменения" (click)="reset()" [disabled]="!authorsNames.size">

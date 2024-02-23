@@ -1,8 +1,9 @@
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 export class GeneralService<T extends { id: number }> {
   private collection: T[] = [];
   public readonly collection$ = new BehaviorSubject<T[]>(this.collection);
+  public readonly remove$ = new Subject<T>();
 
   constructor(
 
@@ -46,6 +47,10 @@ export class GeneralService<T extends { id: number }> {
     return [...this.collection];
   }
 
+  public getId(id: number){
+    return this.collection.find(item => item.id === id);
+  }
+
   public add(data: Omit<T, 'id'>){
     const newId = this.getNewId();
     this.setCollection([...this.collection, {...data, id: newId} as T]);
@@ -71,11 +76,15 @@ export class GeneralService<T extends { id: number }> {
   }
 
   public remove(dataId: number): boolean{
-    const newcollection = this.collection.filter(data => data.id === dataId);
+    const itemToRemove = this.collection.find(item => item.id === dataId);
+    const newcollection = this.collection.filter(data => data.id !== dataId);
     if (newcollection.length === this.collection.length) {
       return false;
     }
-    this.setCollection(newcollection);
+    if (itemToRemove) {
+      this.remove$.next(itemToRemove);
+    }
+    this.setCollection([...newcollection]);
     return true;
   }
 

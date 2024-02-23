@@ -7,6 +7,12 @@
 
 .book-filter{
   padding: 20px 60px;
+  position: relative;
+  .reset-button{
+    position: absolute;
+    top: 54px;
+    right: 24px;
+  }
 }
 
 .creation-form{

@@ -1,10 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, TemplateRef } from '@angular/core';
 import { CreationFormType, InputType } from '@shared/types/creation-form.type';
 import { FormGroup, FormControl, FormArray } from "@angular/forms";
 import { Book } from '@shared/types/book.type';
-import { LangService } from '@bookList/services/lang.service';
-import { AuthorService } from '@bookList/services/author.service';
-import { StyleService } from '@bookList/services/style.service'
+import { LangService } from '@shared/services/lang.service';
+import { AuthorService } from '@shared/services/author.service';
+import { StyleService } from '@shared/services/style.service'
 import { AnimationEvent, animate, state, style, transition, trigger } from '@angular/animations';
 import { of } from 'rxjs';
 
@@ -106,6 +106,10 @@ export class FilterComponent implements OnInit{
       const formControl = new FormControl(null, fModel.input.validators || []);
       this.form.setControl(fModel.prop, formControl);
     })
+  }
+
+  protected resetFilter(){
+    this.form.reset();
   }
 
 }

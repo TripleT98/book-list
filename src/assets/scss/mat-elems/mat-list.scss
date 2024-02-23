@@ -2,4 +2,7 @@
 
 .mdc-list-item__primary-text{
   color: $text-color !important;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
 }

@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { ValidationService } from '@shared/services/validation/validation.service';
+import { AuthorService } from '@shared/services/author.service';
 
 @Component({
   selector: 'app-create-author',
@@ -8,9 +10,11 @@ import { FormControl, Validators } from '@angular/forms';
 })
 export class ModalCreateAuthorComponent {
 
-  protected readonly form = new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(18)])
+  protected readonly form = new FormControl('', [Validators.required, Validators.required, Validators.maxLength(18)], [this.validationS.uniqueInCollection(inject(AuthorService), 'name')])
 
-  constructor(){
+  constructor(
+    private validationS: ValidationService
+  ){
 
   }
 

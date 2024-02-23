@@ -26,7 +26,6 @@ const mat_module = [
 	MatRadioModule,
 	MatSelectModule,
 	MatSnackBarModule,
-	MatSnackBarModule,
 	MatTooltipModule,
 	MatDividerModule,
 	MatTabsModule,

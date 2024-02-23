@@ -1,5 +1,6 @@
 <div class="book-filter">
   <ng-container [ngTemplateOutlet]="filterForm"></ng-container>
+  <ng-container [ngTemplateOutlet]="resetButton"></ng-container>
 </div>
 
 <ng-template #filterForm>
@@ -26,6 +27,7 @@
   <mat-form-field appearance="outline" class="form-field">
     <mat-label>{{formField.label}}</mat-label>
     <mat-select [formControl]="control">
+      <mat-option>--</mat-option>
       <mat-option *ngFor="let data of ((formField.input.data$ | async) || [])" [value]="data.id">
         {{data['name']}}
       </mat-option>
@@ -51,4 +53,8 @@
       <input autocomplete="off" matInput [formControl]="orderF" type="number">
     </mat-form-field>
   </div>
+</ng-template>
+
+<ng-template #resetButton>
+  <mat-icon class="reset-button clickable" matTooltip="Сбросить фильтр" (click)="resetFilter()">settings_backup_restore</mat-icon>
 </ng-template>

@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { BookListService } from '@bookList/services/book-list.service';
-import { FormGroup, FormControl } from "@angular/forms";
-import { Book, BookInfo } from '@shared/types/book.type';
+import { BookListService } from '@shared/services/book-list.service';
+import { FormGroup } from "@angular/forms";
+import { Book } from '@shared/types/book.type';
+import { StyleService } from '@shared/services/style.service'
+import { Style } from '@shared/types/style.type';
 import { ModalService, MatDialogName } from '@shared/services/modal/modal.service';
 import { combineLatest } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
@@ -17,19 +19,38 @@ export class BookListComponent {
   public readonly filterForm = new FormGroup<Record<keyof Book, any>>({} as Record<keyof Book, any>);
   protected bookList$ = combineLatest([
     this.bookListS.get$(),
-    this.filterForm.valueChanges.pipe(startWith(this.filterForm.value))
-  ]).pipe(map(([books, filterVal]) => {
-    for(let key in filterVal){
-
+    this.filterForm.valueChanges.pipe(startWith(this.filterForm.value)),
+    this.styleS.get$()
+  ]).pipe(map(([books, filterVal, styles]) => {
+    let filteredBooks = [...books];
+    let key: keyof typeof filterVal;
+    for(key in filterVal){
+      const val = filterVal[key];
+      if (!val) {
+        continue;
+      }
+      if (key === 'name' || key === 'description') {
+        filteredBooks = this.filterByString(filteredBooks, key, val);
+      }
+      else if (key === 'authorId' || key === 'langId') {
+        filteredBooks = this.filterByIdPropMulti(filteredBooks, key, val);
+      }
+      else if (key === 'pageCount') {
+        filteredBooks = this.filterByRange(filteredBooks, key, val);
+      }
+      else if (key === 'style') {
+        const selectedStyle = styles.find(st => st.id === val);
+        filteredBooks = this.filterByString(filteredBooks, key, selectedStyle?.name || '');
+      }
     }
-    return books;
+    return filteredBooks;
   }));
 
   constructor(
     private bookListS: BookListService,
-    private modalS: ModalService
+    private modalS: ModalService,
+    private styleS: StyleService,
   ){
-    this.filterForm.valueChanges.subscribe(console.log);
   }
 
   protected createBook(){
@@ -46,17 +67,18 @@ export class BookListComponent {
   }
 
   private filterByString(books: Book[], prop: keyof Book, value: string) {
-    return books.filter(book => (book[prop] as string).includes(value))
+    return books.filter(book => (book[prop] as string).includes(value.trim()))
   }
 
   private filterByIdPropMulti(books: Book[], prop: keyof Book, value: number[]){
+    if (!value.length) {
+      return books;
+    }
     return books.filter(book => value.includes(book[prop] as number))
   }
 
-}
+  private filterByRange(books: Book[], prop: keyof Book, value: [number, number]){
+    return books.filter(book => (value[0] === null || book[prop] as number >= value[0]) && (value[1] === null || book[prop] as number <= value[1]));
+  }
 
-type PickKeysByType<T, D> = {
-  [key in keyof T]: T[key] extends D ? D : never;
 }
-
-type StringKeys<T extends keyof PickKeysByType<Book, string>> = PickKeysByType<Book, string>[T] extends never ? never : string;

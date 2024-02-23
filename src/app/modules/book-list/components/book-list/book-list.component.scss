@@ -23,13 +23,8 @@ $drop-anim-time: .6s;
     position: absolute;
     top: 14px;
     right: 24px;
-    color: $side-color;
-    transition-duration: .3s;
     z-index: 20;
     cursor: pointer;
-    &:hover{
-      color: $side-color-2;
-    }
   }
 }
 
@@ -42,6 +37,24 @@ $drop-anim-time: .6s;
   &.filter-opened{
     height: $main-height-filter-opened;
     transition-duration: $drop-anim-time;
+  }
+  .fallback{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    .content{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(300%, -50%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .mat-icon{
+        transform: scale(2);
+        opacity: 0.5;
+      }
+    }
   }
 }
 

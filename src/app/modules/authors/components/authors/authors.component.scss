@@ -27,11 +27,39 @@ $main-height: calc(100% - ($header-height + $footer-height));
   box-shadow: 0 0 8px rgb(0,0,0,0.2);
   color: $text-color !important;
   .mat-mdc-list-item{
-    cursor: pointer;
     transition-duration: .3s;
     &:hover{
       background: rgba(255,255,255, 0.15);
     }
+  }
+}
+
+.input-item{
+  position: relative;
+  input{
+    border: none;
+    background: transparent;
+    font-size: 1em;
+    &:focus{
+      outline: none;
+    }
+  }
+  .delete-icon{
+    opacity: 0;
+  }
+  &.invalid{
+    border: 1px solid red;
+  }
+  &:hover{
+    .delete-icon{
+      opacity: 1;
+    }
+  }
+  .error{
+    position: absolute;
+    bottom: -6px;
+    left: 14px;
+    font-size: 0.5em;
   }
 }
 

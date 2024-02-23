@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Book } from '@shared/types/book.type';
+import { BookListService } from '@shared/services/book-list.service';
 import { CreationFormType, InputType } from '@shared/types/creation-form.type';
-import { LangService } from '@bookList/services/lang.service';
-import { AuthorService } from '@bookList/services/author.service';
+import { LangService } from '@shared/services/lang.service';
+import { AuthorService } from '@shared/services/author.service';
+import { ValidationService } from '@shared/services/validation/validation.service';
 import { map, startWith } from 'rxjs/operators';
 
 @Component({
@@ -21,7 +23,8 @@ export class ModalCreateBookComponent implements OnInit {
       label: 'Название',
       input: {
         type: InputType['string'],
-        validators: [ Validators.required, Validators.minLength(3), Validators.maxLength(18) ]
+        validators: [ Validators.required, Validators.minLength(3), Validators.maxLength(18) ],
+        asyncValidators: [this.validationS.uniqueInCollection(inject(BookListService), 'name')]
       }
     },
     {
@@ -75,17 +78,18 @@ export class ModalCreateBookComponent implements OnInit {
   constructor(
     private authorS: AuthorService,
     private langS: LangService,
+    private validationS: ValidationService,
   ){
-
   }
 
   ngOnInit(){
     this.initForm();
+    this.form.valueChanges.subscribe(_ => console.log(this.form));
   }
 
   private initForm(){
     this.bookCreationForm.forEach(fModel => {
-      const formControl = new FormControl(null, fModel.input.validators || []);
+      const formControl = new FormControl(null, fModel.input.validators || [], fModel.input.asyncValidators || []);
       this.form.setControl(fModel.prop, formControl);
     })
   }

@@ -1,8 +1,10 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform, Injectable } from '@angular/core';
 import { AbstractControl, Validators } from '@angular/forms';
 import { Observable, startWith, of } from 'rxjs';
 import { map } from 'rxjs/operators'
-
+@Injectable({
+  providedIn: 'root'
+})
 @Pipe({
   name: 'getErrMess'
 })
@@ -22,6 +24,12 @@ export class GetErrorMessagePipe implements PipeTransform {
     },
     min(data: {min: number}){
       return `Минимальная величина ${data.min}`
+    },
+    uniqueError(data?: {value: string}){
+      if (data?.value) {
+        return `Значение ${data.value} повторяется`
+      }
+      return 'Не уникальное значение';
     }
   }
 
@@ -39,6 +47,10 @@ export class GetErrorMessagePipe implements PipeTransform {
       const errorText = (this.errors as any)[errorName]?.(errorData);
       return errorText || '';
     })) : of('');
+  }
+
+  public getErrors(){
+    return this.errors;
   }
 
 }

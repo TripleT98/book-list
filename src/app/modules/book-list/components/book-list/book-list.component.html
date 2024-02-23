@@ -1,13 +1,13 @@
 <div class="book-list">
   <ng-container [ngTemplateOutlet]="header"></ng-container>
-  <ng-container [ngTemplateOutlet]="main"></ng-container>
+  <ng-container [ngTemplateOutlet]="main" [ngTemplateOutletContext]="{books: (bookList$ | async)}"></ng-container>
   <ng-container [ngTemplateOutlet]="footer"></ng-container>
 </div>
 
 <ng-template #header>
   <header class="header" [ngClass]="{'filter-opened': filterStatus}">
     <mat-icon
-      class="filter-icon"
+      class="filter-icon clickable"
       (click)="switchFilter()"
       [matTooltip]="!filterStatus ? 'Фильтр' : 'Закрыть фильтр'"
     >
@@ -17,9 +17,11 @@
   </header>
 </ng-template>
 
-<ng-template #main>
+<ng-template #main let-books="books">
   <main class="main" [ngClass]="{'filter-opened': filterStatus}">
-    <app-book *ngFor="let book of (bookList$ | async)" [book]="book.id | getBookInfo | async"></app-book>
+    <ng-container *ngIf="books?.length; else fallback">
+      <app-book *ngFor="let book of books" [book]="book.id | getBookInfo | async"></app-book>
+    </ng-container>
   </main>
 </ng-template>
 
@@ -29,4 +31,12 @@
       <mat-icon>add</mat-icon>
     </button>
   </footer>
+</ng-template>
+
+<ng-template #fallback>
+  <div class="fallback">
+    <div class="content">
+      <mat-icon matTooltip="Пусто">visibility_off</mat-icon>
+    </div>
+  </div>
 </ng-template>

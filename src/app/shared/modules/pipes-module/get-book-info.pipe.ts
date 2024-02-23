@@ -1,10 +1,10 @@
 import { Pipe, PipeTransform, Injectable } from '@angular/core';
-import { LangService } from '@bookList/services/lang.service';
-import { AuthorService } from '@bookList/services/author.service';
+import { LangService } from '@shared/services/lang.service';
+import { AuthorService } from '@shared/services/author.service';
 import { Book, BookInfo } from '@shared/types/book.type';
 import { Lang } from '@shared/types/lang.type';
 import { Author } from '@shared/types/author.type';
-import { BookListService } from '@bookList/services/book-list.service';
+import { BookListService } from '@shared/services/book-list.service';
 import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

@@ -16,11 +16,12 @@ body{
   @include mainGradient;
 }
 
+$scroll-bar-size: 10px;
 
 *::-webkit-scrollbar-thumb {
   @include sideGradient;
-  border-radius: 5px;
-  width: 5px;
+  border-radius: calc($scroll-bar-size / 2);
+  width: calc($scroll-bar-size / 2);
 }
 
 *::-webkit-scrollbar-track {
@@ -29,5 +30,6 @@ body{
 }
 
 *::-webkit-scrollbar {
-  height: 10px;
+  height: $scroll-bar-size;
+  width: $scroll-bar-size;
 }

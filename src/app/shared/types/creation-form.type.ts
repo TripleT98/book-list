@@ -1,4 +1,4 @@
-import { ValidatorFn } from '@angular/forms';
+import { ValidatorFn, AsyncValidatorFn } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 export type CreationFormType<T extends Record<string, any>> = {
@@ -7,6 +7,7 @@ export type CreationFormType<T extends Record<string, any>> = {
   input: {
     type: InputType,
     validators? : ValidatorFn[],
+    asyncValidators?: AsyncValidatorFn[],
     order?: [CreationFormType<any>, CreationFormType<any>],
     data?: DataType,
     data$?: Observable<DataType>
