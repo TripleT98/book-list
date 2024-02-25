@@ -1,0 +1,31 @@
+@import "assets/scss/variables.scss";
+
+.mat-mdc-card{
+  .mat-mdc-card-title{
+    color: $info-text-color;
+    display: flex;
+    justify-content: center;
+  }
+  .mat-mdc-card-subtitle{
+    margin-top: 10px;
+  }
+  .mat-mdc-card-content{
+    text-indent: 30px;
+    margin-top: 14px;
+    color: $info-text-color;
+  }
+  .mat-mdc-card-actions{
+    margin-top: 14px;
+    display: flex;
+    justify-content: center;
+  }
+  .mat-mdc-card-header{
+    .mat-mdc-card-header-text, .mat-mdc-card-title{
+      width: 100% !important;
+    }
+  }
+}
+
+.mat-mdc-card-content{
+  @include alternateScroll;
+}

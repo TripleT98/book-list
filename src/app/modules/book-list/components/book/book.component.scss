@@ -140,7 +140,19 @@
 }
 
 .author{
-  @include posAbs(475px, 50px);
+  @include posAbs(465px, 50px);
+}
+
+.style{
+  @include posAbs(495px, 50px);
+}
+
+.lang{
+  @include posAbs(515px, 50px);
+}
+
+.style, .lang{
+  font-size: .8em;
 }
 
 .name{
@@ -149,7 +161,7 @@
   font-size: 30px;
   font-weight: 600;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   @include posAbs(50px, 0px);
   word-break: break-all;
   text-align: center;

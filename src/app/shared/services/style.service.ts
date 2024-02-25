@@ -3,13 +3,15 @@ import { GeneralService } from "./general.service";
 import { Style } from "@shared/types/style.type";
 import { BookListService } from './book-list.service';
 
+const collectionName = 'styles';
+
 @Injectable({providedIn: 'root'})
 export class StyleService extends GeneralService<Style> {
 
   constructor(
     private bookListS: BookListService
   ){
-    super();
+    super(collectionName);
     this.bookListS.get$().subscribe(bookList => {
       let styleSet = new Set<string>();
       bookList.forEach(book => {

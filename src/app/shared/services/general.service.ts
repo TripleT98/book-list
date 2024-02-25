@@ -6,11 +6,28 @@ export class GeneralService<T extends { id: number }> {
   public readonly remove$ = new Subject<T>();
 
   constructor(
-
+    protected collectionName: string
   ){
     this.collection$.subscribe(collection => {
       this.collection = collection;
+      if (!collection.length) {
+        return;
+      }
+      this.saveInStorage();
     })
+  }
+
+  protected saveInStorage(){
+    localStorage.setItem(this.collectionName, JSON.stringify(this.collection));
+  }
+
+  protected getFromStorage(): T[]{
+    return (JSON.parse(localStorage.getItem(this.collectionName) || '[]'));
+  }
+
+  protected setFromStorage(){
+    const storagedCollection = this.getFromStorage();
+    this.setCollection(storagedCollection);
   }
 
   private setCollection(collection: T[]){
@@ -65,11 +82,11 @@ export class GeneralService<T extends { id: number }> {
 
   public change(data: Partial<T>){
     const newCollection = this.collection.reduce<T[]>((acc,item) => {
-      let newItem = {...item};
+      let newItem!:T;
       if (item.id === data.id) {
-        newItem = {...newItem, ...data};
+        newItem = Object.assign(item, data);
       };
-      acc.push(newItem)
+      acc.push(newItem || item)
       return acc;
     }, []);
     this.setCollection(newCollection);

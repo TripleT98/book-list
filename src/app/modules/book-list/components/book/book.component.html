@@ -3,12 +3,18 @@
 </div>
 
 <ng-template #bookView>
-  <div class="container" #bookContainer>
+  <div class="container">
 		<div class="book">
 			<div class="front">
 				<div class="cover">
           <p class="info name">{{book?.name}}</p>
-          <p class="info author">{{book?.author?.name}}</p>
+          <p class="info author">{{book?.author?.name || "Неизвестный автор"}}</p>
+          <p class="info style">
+            Жанр: {{book?.style}}
+          </p>
+          <p class="info lang">
+            Язык: {{book?.lang?.name}}
+          </p>
 				</div>
 			</div>
 			<div class="left-side">

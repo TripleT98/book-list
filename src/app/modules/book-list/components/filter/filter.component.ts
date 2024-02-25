@@ -5,8 +5,6 @@ import { Book } from '@shared/types/book.type';
 import { LangService } from '@shared/services/lang.service';
 import { AuthorService } from '@shared/services/author.service';
 import { StyleService } from '@shared/services/style.service'
-import { AnimationEvent, animate, state, style, transition, trigger } from '@angular/animations';
-import { of } from 'rxjs';
 
 @Component({
   selector: 'app-filter',
@@ -47,13 +45,13 @@ export class FilterComponent implements OnInit{
         type: InputType['range'],
         order: [{
           prop: 'from',
-          label: 'От',
+          label: 'Стр:От',
           input: {
             type: InputType['number'],
           }
         }, {
           prop: 'to',
-          label: 'До',
+          label: 'Стр:До',
           input: {
             type: InputType['number'],
           }

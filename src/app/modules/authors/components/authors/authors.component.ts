@@ -4,19 +4,25 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthorService } from '@shared/services/author.service';
 import { ModalService, MatDialogName } from '@shared/services/modal/modal.service';
 import { ValidationService } from '@shared/services/validation/validation.service';
-import { GetErrorMessagePipe } from '@shared/modules/pipes-module/get-err-mess.pipe';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatListItem } from '@angular/material/list';
+import { animate, style, transition, trigger } from '@angular/animations';
 import { DestroyService } from '@shared/services/destroy/destroy.service';
 import { Observable } from 'rxjs';
 import { tap, takeUntil } from 'rxjs/operators';
-import { cloneDeep } from 'lodash'
 
 @Component({
   selector: 'app-authors',
   templateUrl: './authors.component.html',
   styleUrls: ['./authors.component.scss'],
-  providers: [DestroyService]
+  providers: [DestroyService],
+  animations: [
+    trigger('deleteAuthorAnim', [
+      transition(":leave", animate('400ms ease-out', style({
+        opacity: 0,
+        height: 0,
+        transform: 'scale(0)'
+      })))
+    ])
+  ]
 })
 export class AuthorsComponent {
 
@@ -32,8 +38,6 @@ export class AuthorsComponent {
     private validationS: ValidationService,
     private destroyS: DestroyService
   ){
-    this.namesForm.valueChanges.subscribe(console.log);
-
     this.authorS.remove$.pipe(takeUntil(this.destroy$)).subscribe(removedItem => {
       this.namesForm.removeControl(String(removedItem.id));
     })

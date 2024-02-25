@@ -1,0 +1,17 @@
+<mat-card class="book-info" *ngIf="(data.bookId | getBookInfo | async) as book">
+  <mat-card-header class="header">
+    <mat-card-title class="title">{{book.name}}</mat-card-title>
+    <mat-card-subtitle class="sub-title">{{book.author?.name || "Неизвестный автор"}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content class="content">
+    <p *ngIf="book.author?.name as authorName">Автор книги - {{authorName}}. </p>
+    <p *ngIf="!book.author?.name">Книга написана неизвестным автором. </p>
+    Произвеление написано в жанре '{{book.style}}' на {{book.lang.name | transformLangName}} языке и включает в себя {{book.pageCount}} страниц.
+    <p>
+      {{book.description}}
+    </p>
+  </mat-card-content>
+  <mat-card-actions class="actions">
+    <button mat-raised-button [mat-dialog-close]="false">Удалить</button>
+  </mat-card-actions>
+</mat-card>

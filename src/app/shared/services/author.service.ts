@@ -3,13 +3,12 @@ import { GeneralService } from "./general.service";
 import { Author } from '@shared/types/author.type';
 
 const authors: Author[] = [
-  {id: 1, name: 'J. R. R. Tolkien'},
-  {id: 2, name: 'G. Orwell'},
-  {id: 3, name: 'A. Pushkin'},
-  {id: 4, name: 'R. Gosling'},
-  {id: 5, name: 'J. Statham'},
-  {id: 6, name: 'C. Bale'},
+  {id: 1, name: 'Джон Толкин'},
+  {id: 2, name: 'Джордж Оруэлл'},
+  {id: 3, name: 'Александр Пушкин'},
 ]
+
+const collectionName = 'authors';
 
 @Injectable({providedIn: 'root'})
 export class AuthorService extends GeneralService<Author> {
@@ -17,10 +16,13 @@ export class AuthorService extends GeneralService<Author> {
   constructor(
 
   ){
-    super();
-    authors.forEach(b => {
-      this.add(b);
-    })
+    super(collectionName);
+    const storaged = this.getFromStorage();
+    if (!storaged?.length) {
+      this.set(authors);
+    }
+    //для загрузки коллецкции из localStorage
+    this.setFromStorage();
   }
 
 

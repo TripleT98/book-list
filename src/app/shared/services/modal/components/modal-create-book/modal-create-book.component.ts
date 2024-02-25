@@ -41,7 +41,7 @@ export class ModalCreateBookComponent implements OnInit {
       label: 'Описание',
       input: {
         type: InputType['text'],
-        validators: [ Validators.required, Validators.minLength(10), Validators.maxLength(100)]
+        validators: [ Validators.required, Validators.minLength(10), Validators.maxLength(300)]
       }
     },
     {
@@ -84,7 +84,6 @@ export class ModalCreateBookComponent implements OnInit {
 
   ngOnInit(){
     this.initForm();
-    this.form.valueChanges.subscribe(_ => console.log(this.form));
   }
 
   private initForm(){

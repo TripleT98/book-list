@@ -5,104 +5,31 @@ import { GeneralService } from "./general.service";
 
 const bookList: BookList = [{
   id: 1,
-  name: 'book1',
+  name: 'Властелин колец',
   authorId: 1,
-  pageCount: 100,
-  langId: 1,
+  pageCount: 1137,
+  langId: 2,
   style: 'Приключение',
-  description: 'Описание 1'
+  description: 'Хоббит Бильбо Бэггинс, главный герой повести «Хоббит», достигнув почтенного возраста 111 лет, уходит на покой и оставляет племяннику Фродо волшебное кольцо, делающее всякого своего носителя невидимым. От мага Гэндальфа Фродо узнаёт, что ему досталось не простое кольцо, а само Кольцо Всевластья, творение тёмного властелина Саурона, врага свободных народов Средиземья из страны Мордор, созданное, чтобы подчинить себе все прочие волшебные кольца. Кольцо обладает собственной волей и способно продлевать жизнь владельца, одновременно порабощая его, искажать помыслы и вызывать у него желание обладать Кольцом. С помощью Кольца Саурон, побеждённый много лет назад, может вернуть себе утерянную силу. Уничтожить Кольцо можно только одним способом — сбросив его в жерло Огненной Горы Ородруин в Мордоре, где оно и было выковано.'
 },{
   id: 2,
-  name: 'book2',
+  name: '1984',
   authorId: 2,
-  pageCount: 120,
+  pageCount: 320,
   langId: 2,
   style: 'Антиутопия',
-  description: 'Описание 2'
+  description: 'Действие антиутопического романа Джорджа Оруэлла «1984» происходит в будущем тоталитарном обществе, где правительство во главе с Большим Братом полностью контролирует все аспекты жизни граждан. Главный герой, Уинстон Смит, работает в Министерстве правды и начинает восставать против деспотичного режима правительства, но в итоге сталкивается с серьёзными последствиями своих действий.'
 },{
   id: 3,
-  name: 'book3',
+  name: 'Евгений Онегин',
   authorId: 3,
-  pageCount: 230,
-  langId: 3,
+  pageCount: 288,
+  langId: 1,
   style: 'Роман',
-  description: 'Описание 3'
-},
-{
-  id: 1,
-  name: 'book1',
-  authorId: 1,
-  pageCount: 100,
-  langId: 1,
-  style: 'adventure',
-  description: 'Описание 1'
-},{
-  id: 2,
-  name: 'book2',
-  authorId: 2,
-  pageCount: 120,
-  langId: 2,
-  style: 'adventure',
-  description: 'Описание 2'
-},{
-  id: 3,
-  name: 'book3',
-  authorId: 3,
-  pageCount: 230,
-  langId: 3,
-  style: 'adventure',
-  description: 'Описание 3'
-},
-{
-  id: 1,
-  name: 'book1',
-  authorId: 1,
-  pageCount: 100,
-  langId: 1,
-  style: 'adventure',
-  description: 'Описание 1'
-},{
-  id: 2,
-  name: 'book2',
-  authorId: 2,
-  pageCount: 120,
-  langId: 2,
-  style: 'adventure',
-  description: 'Описание 2'
-},{
-  id: 3,
-  name: 'book3',
-  authorId: 3,
-  pageCount: 230,
-  langId: 3,
-  style: 'adventure',
-  description: 'Описание 3'
-},
-{
-  id: 1,
-  name: 'book1',
-  authorId: 1,
-  pageCount: 100,
-  langId: 1,
-  style: 'adventure',
-  description: 'Описание 1'
-},{
-  id: 2,
-  name: 'book2',
-  authorId: 2,
-  pageCount: 120,
-  langId: 2,
-  style: 'adventure',
-  description: 'Описание 2'
-},{
-  id: 3,
-  name: 'book3',
-  authorId: 3,
-  pageCount: 230,
-  langId: 3,
-  style: 'adventure',
-  description: 'Описание 3'
-},];
+  description: 'Роман начинается с сетований молодого дворянина Евгения Онегина по поводу болезни своего дядюшки, вынудившего Евгения покинуть Петербург и отправиться к больному, чтобы проститься с ним. Обозначив таким образом завязку, автор занимает первую главу рассказом о происхождении, семье и жизни своего героя до получения известия о болезни родственника. Повествование ведётся от имени безымянного автора, представившегося добрым приятелем Онегина. Итак, Евгений родился «на брегах Невы», то есть в Петербурге, в не самой успешной дворянской семье...'
+}];
+
+const collectionName = 'books';
 
 @Injectable({providedIn: 'root'})
 export class BookListService extends GeneralService<Book> {
@@ -110,10 +37,13 @@ export class BookListService extends GeneralService<Book> {
   constructor(
 
   ){
-    super();
-    bookList.forEach(b => {
-      this.add(b);
-    })
+    super(collectionName);
+    const storaged = this.getFromStorage();
+    if (!storaged?.length) {
+      this.set(bookList);
+    }
+    //для загрузки коллецкции из localStorage
+    this.setFromStorage();
   }
 
 

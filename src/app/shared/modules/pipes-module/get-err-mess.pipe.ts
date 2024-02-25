@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform, Injectable } from '@angular/core';
-import { AbstractControl, Validators } from '@angular/forms';
+import { AbstractControl } from '@angular/forms';
 import { Observable, startWith, of } from 'rxjs';
-import { map } from 'rxjs/operators'
+import { map } from 'rxjs/operators';
+
 @Injectable({
   providedIn: 'root'
 })

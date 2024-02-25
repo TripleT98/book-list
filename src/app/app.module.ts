@@ -10,12 +10,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ModalCreateBookComponent } from './shared/services/modal/components/modal-create-book/modal-create-book.component';
 import { ModalCreateAuthorComponent } from './shared/services/modal/components/create-author/create-author.component';
+import { ModalBookCardComponent } from './shared/services/modal/components/modal-book-card/modal-book-card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ModalCreateBookComponent,
-    ModalCreateAuthorComponent
+    ModalCreateAuthorComponent,
+    ModalBookCardComponent
   ],
   imports: [
     BrowserModule,
@@ -23,6 +25,8 @@ import { ModalCreateAuthorComponent } from './shared/services/modal/components/c
     BrowserAnimationsModule,
     MaterialModule,
     PipesModule,
+    BookListModule,
+    AuthorsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

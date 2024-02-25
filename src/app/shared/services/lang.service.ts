@@ -8,16 +8,16 @@ const langs: Lang[] = [
   {id: 3, name: 'Французский'},
 ]
 
+const collectionName = 'langs';
+
 @Injectable({providedIn: 'root'})
 export class LangService extends GeneralService<Lang> {
 
   constructor(
 
   ){
-    super();
-    langs.forEach(b => {
-      this.add(b);
-    })
+    super(collectionName);
+    this.set(langs);
   }
 
 
